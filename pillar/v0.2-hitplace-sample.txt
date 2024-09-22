@@ -1,0 +1,83 @@
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+{"hit":"L", "placed":"H"}
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+CRACK
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"L"}
+{"hit":"L", "placed":"L"}
+{"hit":"L", "placed":"L"}
+{"hit":"L", "placed":"L"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+{"hit":"L", "placed":"H"}
+CRACK
+CRACK
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"L"}
+{"hit":"H", "placed":"L"}
+{"hit":"H", "placed":"L"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
+{"hit":"H", "placed":"H"}
