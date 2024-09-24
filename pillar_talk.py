@@ -1,26 +1,23 @@
-import os
-import serial
-from serial.tools import list_ports
+from enum import Enum
+from serial_ports import serialports
 
-serialports = []
+PillarTalk = Enum('PillarTalk', ['crack'])
 
-print('listing com ports...')
-ports = list_ports.comports()
-print(f'got {len(ports)} ports')
-for comport in ports:
-  print(f'opening {comport[0]}')
-  serialports.append(serial.Serial(comport[0]))
+req_to_pillar = {
+    PillarTalk.crack: 'C'
+}
 
-def dispatch_from_ports():
-  while True:
-    for incomingserial in serialports:
-      if incomingserial.in_waiting > 0:
-        try:
-          serialstr = incomingserial.readline().decode().strip()
-          print(serialstr)
-        except:
-          print('error reading serial. exiting...')
-          os._exit(1)
+def serial_write(byte_to_send):
+    for outgoingserial in serialports:
+        outgoingserial.write(byte_to_send)
+
+
+def send_to_serial(event):
+    if event in req_to_pillar:
+        serial_write(req_to_pillar[event].encode('utf-8'))
+
 
 if __name__ == '__main__':
-  dispatch_from_ports()
+    while True:
+        to_send = input()
+        serial_write(to_send.encode('utf-8'))
