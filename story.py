@@ -4,7 +4,7 @@ from player import PlayerEvents
 from pillar_talk import PillarTalk
 
 StoryState = Enum('StoryState', ['booting', 'expect_hit', 'first_hit', 'expect_crack', 'cracking',
-                                 'expect_placement', 'fang_kick', 'lakshmi_narasimha'])
+                                 'expect_placement', 'fang_kick_peace'])
 
 story_state = StoryState.booting
 
@@ -42,9 +42,9 @@ def expect_cracking(line):
 def expect_placement(line):
     incoming_msg = parse_line(line)
     if incoming_msg and incoming_msg['placed'] == 'L':
-        set_state(StoryState.fang_kick)
-        return [{'do': PlayerEvents.fang_kick, 'done': lambda: set_state(StoryState.lakshmi_narasimha)},
-                {'do': PillarTalk.fang_kick}]
+        set_state(StoryState.fang_kick_peace)
+        return [{'do': PlayerEvents.fang_kick_peace, 'done': lambda: set_state(StoryState.expect_hit)},
+                {'do': PillarTalk.fang_kick_peace}]
     return []
 
 
@@ -55,8 +55,7 @@ storyline = {
     StoryState.expect_crack: expect_cracking,
     StoryState.cracking: do_nothing,
     StoryState.expect_placement: expect_placement,
-    StoryState.fang_kick: do_nothing,
-    StoryState.lakshmi_narasimha: do_nothing
+    StoryState.fang_kick_peace: do_nothing
 }
 
 

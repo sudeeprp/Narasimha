@@ -11,7 +11,7 @@ const int fangpin = 9;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("v0.9 hitint crack place fang kick");
+  Serial.println("v1.1 hitint crack place fang un kick");
 
   pinMode(kickpin, OUTPUT);
   kickservo.attach(kickpin);
@@ -55,6 +55,9 @@ void loop() {
     } else if (incoming == 'F') {
       Serial.println("Fang");
       fangservo.write(0);
+    } else if (incoming == 'U') {
+      Serial.println("Unfang");
+      fangservo.write(50);
     } else if (incoming == 'C') {
       Serial.println("Crack");
       digitalWrite(crackpin, LOW);
@@ -70,7 +73,7 @@ void loop() {
   Serial.print(", ");
   digitalPinAsJson(placepin, "placed");
   Serial.println("}");
-  delay(500);
+  delay(1000);
 }
 
 void pillarHit() {

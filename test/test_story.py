@@ -54,14 +54,14 @@ class InteractionTest(unittest.TestCase):
         self.assertEqual(story.state(), StoryState.expect_placement)
         self.assertEqual(actuator_mock.events_given_to_serial[1], PillarTalk.crack)
 
-    def test_placement_triggers_fang_kick(self):
+    def test_placement_triggers_fang_kick_peace(self):
         story.set_state(StoryState.expect_placement)
         actuator_mock = ActuatorMock()
         doer = Doer(actuator_mock.play, actuator_mock.serialtalk)
         doer.do(story.incoming('{"hit":"H", "placed":"L"}'))
-        self.assertEqual(actuator_mock.events_given_to_player[0], PlayerEvents.fang_kick)
-        self.assertEqual(story.state(), StoryState.lakshmi_narasimha)
-        self.assertEqual(actuator_mock.events_given_to_serial[1], PillarTalk.fang_kick)
+        self.assertEqual(actuator_mock.events_given_to_player[0], PlayerEvents.fang_kick_peace)
+        self.assertEqual(story.state(), StoryState.expect_hit)
+        self.assertEqual(actuator_mock.events_given_to_serial[1], PillarTalk.fang_kick_peace)
 
 
 if __name__ == '__main__':

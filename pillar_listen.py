@@ -12,14 +12,16 @@ serial_repeats = 0
 
 
 def printlog(serialstr):
+  global last_serialstr, serial_repeats
   if serialstr == last_serialstr:
     serial_repeats += 1
   else:
     serial_repeats = 1
   if serial_repeats == 1:
-    print(f'\n{serialstr}', end=None)
+    print(f'\n{serialstr}', end='')
   else:
-    print(f'\r{serialstr} x {serial_repeats}', end=None)
+    print(f'\r{serialstr} x {serial_repeats} ', end='')
+  last_serialstr = serialstr
 
 
 def dispatch_from_ports():

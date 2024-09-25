@@ -4,12 +4,12 @@ import time
 import threading
 import os
 
-PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang_kick'])
+PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang_kick_peace'])
 
 audios = {
     PlayerEvents.first_hit: 'first_hit.mp3',
     PlayerEvents.crack: 'crack_for_narasimha.mp3',
-    PlayerEvents.fang_kick: 'fang.mp3'
+    PlayerEvents.fang_kick_peace: 'fang_kick_peace.mp3'
 }
 
 
@@ -38,5 +38,5 @@ if __name__ == '__main__':
         print('done')
     play(PlayerEvents.first_hit, 
          lambda: play(PlayerEvents.crack, 
-                      lambda: play(PlayerEvents.fang_kick, print_done))
+                      lambda: play(PlayerEvents.fang_kick_peace, print_done))
     )
