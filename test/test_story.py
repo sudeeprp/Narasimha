@@ -2,18 +2,14 @@ import unittest
 from pillar_talk import PillarTalk
 import story
 from story import StoryState
-from player import PlayerEvents
 from doer import Doer
 
 class ActuatorMock:
     def __init__(self):
-        self.events_given_to_player = []
-        self.events_given_to_serial = []
-    def play(self, event, done):
-        self.events_given_to_player.append(event)
+        self.events_requested = []
+    def request(self, event, done):
+        self.events_requested.append(event)
         done() if done else None
-    def serialtalk(self, event):
-        self.events_given_to_serial.append(event)
 
 
 class InteractionTest(unittest.TestCase):
@@ -36,32 +32,29 @@ class InteractionTest(unittest.TestCase):
         story.set_state(StoryState.expect_hit)
         replies = story.incoming('{"event": "CRACK"}')
         self.assertEqual(len(replies), 1)
-        self.assertEqual(replies[0]['do'], PlayerEvents.first_hit)
+        self.assertEqual(replies[0]['do'], PillarTalk.first_hit)
         self.assertIsNotNone(replies[0]['done'])
         actuator_mock = ActuatorMock()
-        doer = Doer(actuator_mock.play, actuator_mock.serialtalk)
+        doer = Doer(actuator_mock.request)
         doer.do(replies)
-        self.assertEqual(actuator_mock.events_given_to_player[0], PlayerEvents.first_hit)
+        self.assertEqual(actuator_mock.events_requested[0], PillarTalk.first_hit)
         self.assertEqual(story.state(), StoryState.expect_crack) # because the mock has called done()
-        self.assertEqual(actuator_mock.events_given_to_serial[0], PlayerEvents.first_hit)
 
     def test_second_hit_of_audience_gives_audio_and_cracks_the_pillar(self):
         story.set_state(StoryState.expect_crack)
         actuator_mock = ActuatorMock()
-        doer = Doer(actuator_mock.play, actuator_mock.serialtalk)
+        doer = Doer(actuator_mock.request)
         doer.do(story.incoming('{"event": "CRACK"}'))
-        self.assertEqual(actuator_mock.events_given_to_player[0], PlayerEvents.crack)
+        self.assertEqual(actuator_mock.events_requested[0], PillarTalk.crack)
         self.assertEqual(story.state(), StoryState.expect_placement)
-        self.assertEqual(actuator_mock.events_given_to_serial[1], PillarTalk.crack)
 
     def test_placement_triggers_fang_kick_peace(self):
         story.set_state(StoryState.expect_placement)
         actuator_mock = ActuatorMock()
-        doer = Doer(actuator_mock.play, actuator_mock.serialtalk)
+        doer = Doer(actuator_mock.request)
         doer.do(story.incoming('{"hit":"H", "placed":"L"}'))
-        self.assertEqual(actuator_mock.events_given_to_player[0], PlayerEvents.fang_kick_peace)
+        self.assertEqual(actuator_mock.events_requested[0], PillarTalk.fang_kick_peace)
         self.assertEqual(story.state(), StoryState.expect_hit)
-        self.assertEqual(actuator_mock.events_given_to_serial[1], PillarTalk.fang_kick_peace)
 
 
 if __name__ == '__main__':

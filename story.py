@@ -1,6 +1,5 @@
 from enum import Enum
 import json
-from player import PlayerEvents
 from pillar_talk import PillarTalk
 
 StoryState = Enum('StoryState', ['booting', 'expect_hit', 'first_hit', 'expect_crack', 'cracking',
@@ -27,15 +26,14 @@ def when_booting(line):
 def expect_first_hit(line):
     if line == '{"event": "CRACK"}':
         set_state(StoryState.first_hit)
-        return [{'do': PlayerEvents.first_hit, 'done': lambda: set_state(StoryState.expect_crack)}]
+        return [{'do': PillarTalk.first_hit, 'done': lambda: set_state(StoryState.expect_crack)}]
     return []
 
 
 def expect_cracking(line):
     if line == '{"event": "CRACK"}':
         set_state(StoryState.cracking)
-        return [{'do': PlayerEvents.crack, 'done': lambda: set_state(StoryState.expect_placement)},
-                {'do': PillarTalk.crack}]
+        return [{'do': PillarTalk.crack, 'done': lambda: set_state(StoryState.expect_placement)}]
     return []
 
 
@@ -43,8 +41,7 @@ def expect_placement(line):
     incoming_msg = parse_line(line)
     if incoming_msg and incoming_msg['placed'] == 'L':
         set_state(StoryState.fang_kick_peace)
-        return [{'do': PlayerEvents.fang_kick_peace, 'done': lambda: set_state(StoryState.expect_hit)},
-                {'do': PillarTalk.fang_kick_peace}]
+        return [{'do': PillarTalk.fang_kick_peace, 'done': lambda: set_state(StoryState.expect_hit)}]
     return []
 
 

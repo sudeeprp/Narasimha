@@ -11,7 +11,7 @@ const int fangpin = 9;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("v1.1 hitint crack place fang un kick");
+  Serial.println("v1.2 hitint crack place fang un kick");
 
   pinMode(kickpin, OUTPUT);
   kickservo.attach(kickpin);
@@ -46,6 +46,8 @@ char* digitalPinAsJson(int pin, const char* key) {
   }
 }
 
+int pulse = 0;
+
 void loop() {
   if (Serial.available() > 0) {
     int incoming = Serial.read();
@@ -68,12 +70,15 @@ void loop() {
       digitalWrite(crackpin, HIGH);
     }
   }
-  Serial.print("{");
-  digitalPinAsJson(hitpin, "hit");
-  Serial.print(", ");
-  digitalPinAsJson(placepin, "placed");
-  Serial.println("}");
-  delay(1000);
+  if (pulse == 0) {
+    Serial.print("{");
+    digitalPinAsJson(hitpin, "hit");
+    Serial.print(", ");
+    digitalPinAsJson(placepin, "placed");
+    Serial.println("}");
+  }
+  pulse = (pulse + 1) % 4;
+  delay(250);
 }
 
 void pillarHit() {

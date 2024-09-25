@@ -25,7 +25,7 @@ def printlog(serialstr):
 
 
 def dispatch_from_ports():
-  doer = Doer(player.play, pillar_talk.talk_to_pillar)
+  doer = Doer(pillar_talk.request_pillar)
   while True:
     for incomingserial in serialports:
       if incomingserial.in_waiting > 0:

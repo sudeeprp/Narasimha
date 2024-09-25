@@ -4,12 +4,14 @@ import time
 import threading
 import os
 
-PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang_kick_peace'])
+PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang', 'kick', 'peace'])
 
 audios = {
     PlayerEvents.first_hit: 'first_hit.mp3',
     PlayerEvents.crack: 'crack_for_narasimha.mp3',
-    PlayerEvents.fang_kick_peace: 'fang_kick_peace.mp3'
+    PlayerEvents.fang: 'fang.mp3',
+    PlayerEvents.kick: 'kick.mp3',
+    PlayerEvents.peace: 'peace.mp3'
 }
 
 
