@@ -2,7 +2,6 @@ import os
 from doer import Doer
 from serial_ports import serialports
 from story import incoming
-import player
 import pillar_talk
 import serial
 from serial.tools import list_ports
