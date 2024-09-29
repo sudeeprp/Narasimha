@@ -4,14 +4,16 @@ import time
 import threading
 import os
 
-PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang', 'kick', 'peace'])
+PlayerEvents = Enum('PlayerEvents', ['first_hit', 'crack', 'fang', 'kick', 'sharanam', 'simha', 'peace'])
 
 audios = {
     PlayerEvents.first_hit: 'first_hit.mp3',
     PlayerEvents.crack: 'crack_for_narasimha.mp3',
     PlayerEvents.fang: 'fang.mp3',
     PlayerEvents.kick: 'kick.mp3',
-    PlayerEvents.peace: 'peace.mp3'
+    PlayerEvents.sharanam: 'sharanam.mp3',
+    PlayerEvents.simha: 'simha.mp3',
+    PlayerEvents.peace: 'peace.mp3',
 }
 
 
@@ -38,7 +40,8 @@ def play(event, done):
 if __name__ == '__main__':
     def print_done():
         print('done')
-    play(PlayerEvents.first_hit, 
-         lambda: play(PlayerEvents.crack, 
-                      lambda: play(PlayerEvents.fang_kick_peace, print_done))
-    )
+    # Testing the enum to filename mapping
+    player_events = list(PlayerEvents)
+    def play_event(event_index):
+        play(player_events[event_index], lambda: play_event(event_index + 1))
+    play_event(0)
