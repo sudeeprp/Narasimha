@@ -11,7 +11,7 @@ const int fangpin = 9;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("v1.2 hitint crack place fang un kick");
+  Serial.println("v1.3 while");
 
   pinMode(kickpin, OUTPUT);
   kickservo.attach(kickpin);
