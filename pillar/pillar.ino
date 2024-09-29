@@ -49,7 +49,7 @@ char* digitalPinAsJson(int pin, const char* key) {
 int pulse = 0;
 
 void loop() {
-  if (Serial.available() > 0) {
+  while (Serial.available() > 0) {
     int incoming = Serial.read();
     if (incoming == 'K') {
       Serial.println("Kickout");
