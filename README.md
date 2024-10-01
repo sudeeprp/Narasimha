@@ -28,6 +28,16 @@ Perhaps the pins marked with ~ are for output as well
 
 `D4` input from placement. Low when placed 
 
+`D3` output: for pillar-cracking solenoid
+
+`D5` output: Narasimha light request
+
+`D6` output: Lakshmi Narasimha light request
+
+`D9` fang servo request
+
+`D10` kick servo request
+
 ## upcoming trial
 
 Write from python using [write](https://pyserial.readthedocs.io/en/latest/pyserial_api.html)
