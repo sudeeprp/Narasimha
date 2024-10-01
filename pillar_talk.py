@@ -35,10 +35,11 @@ def fang_kick_peace(done):
     def sharanam():
         print('sharanam')
         play(PlayerEvents.sharanam, simha)
-        serial_write(b'U')
+        time.sleep(1)
+        serial_write(b'R')
     def unfang_and_kick():
         print('wait, unfang and kick')
-        time.sleep(4)
+        time.sleep(0.5)
         serial_write(b'U')
         serial_write(b'K')
         play(PlayerEvents.kick, sharanam)
