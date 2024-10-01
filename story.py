@@ -39,7 +39,7 @@ def expect_cracking(line):
 
 def expect_placement(line):
     incoming_msg = parse_line(line)
-    if incoming_msg and incoming_msg['placed'] == 'L':
+    if incoming_msg and 'placed' in incoming_msg and incoming_msg['placed'] == 'L':
         set_state(StoryState.fang_kick_peace)
         return [{'do': PillarTalk.fang_kick_peace, 'done': lambda: set_state(StoryState.expect_hit)}]
     return []

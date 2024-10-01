@@ -28,21 +28,37 @@ def fang_kick_peace(done):
         print('reset')
         serial_write(b'R')
         done()
-    def peace():
-        print('peace')
+    def simha():
+        print('Lakshminarasimha')
         # TODO: Switch the light to lakshmi narasimha
-        play(PlayerEvents.peace, reset)
+        play(PlayerEvents.simha, reset)
+    def sharanam():
+        print('sharanam')
+        play(PlayerEvents.sharanam, simha)
+        time.sleep(1)
+        serial_write(b'R')
     def unfang_and_kick():
         print('wait, unfang and kick')
-        time.sleep(4)
+        time.sleep(0.5)
         serial_write(b'U')
         serial_write(b'K')
-        play(PlayerEvents.kick, peace)
+        play(PlayerEvents.kick, sharanam)
+    def fang(count=0):
+        if count < 6:
+            if count % 2 == 0:
+                time.sleep(0.25)
+                serial_write(b'F')
+                play(PlayerEvents.fang, lambda: fang(count + 1))
+            else:
+                time.sleep(1)
+                serial_write(b'U')
+                fang(count + 1)
+        else:
+            unfang_and_kick()
     def serial_sequence():
         print('starting fang...')
-        time.sleep(3)
-        serial_write(b'F')
-        play(PlayerEvents.fang, unfang_and_kick)
+        time.sleep(3) # wait for placement to finish and audience to take back hand
+        fang(0)
     threading.Thread(target=serial_sequence).start()
 
 
