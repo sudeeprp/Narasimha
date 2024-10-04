@@ -1,10 +1,12 @@
 import os
 from doer import Doer
+from player import stop_playing
 from serial_ports import serialports
 from story import incoming
 import pillar_talk
 import serial
 from serial.tools import list_ports
+import msvcrt
 
 last_serialstr = ''
 serial_repeats = 0
@@ -23,6 +25,21 @@ def printlog(serialstr):
   last_serialstr = serialstr
 
 
+def respond_to_key():
+  if msvcrt.kbhit():
+      key = msvcrt.getch()
+      if key == b'q':
+        print('got q for exit...')
+        stop_playing()
+        exit(0)
+      elif key == b'w':
+        print('got w for low power mode...')
+        pillar_talk.request_pillar(pillar_talk.PillarTalk.low_power, lambda: True)
+      elif key == b'e':
+        print('got e to get back on...')
+        pillar_talk.request_pillar(pillar_talk.PillarTalk.back_on, lambda: True)
+
+
 def dispatch_from_ports():
   doer = Doer(pillar_talk.request_pillar)
   while True:
@@ -35,7 +52,7 @@ def dispatch_from_ports():
           os._exit(1)
         printlog(serialstr)
         doer.do(incoming(serialstr))
-
+    respond_to_key()
 
 if __name__ == '__main__':
   print('listing com ports...')
