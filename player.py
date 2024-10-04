@@ -16,6 +16,13 @@ audios = {
     PlayerEvents.peace: 'peace.mp3',
 }
 
+stop_requested = False
+
+
+def stop_playing():
+    global stop_requested
+    stop_requested = True
+
 
 def play_mp3(mp3_file, done):
     pygame.mixer.init()
@@ -24,6 +31,9 @@ def play_mp3(mp3_file, done):
     def monitor_playback():
         print(f'playing {mp3_file}...')
         while pygame.mixer.music.get_busy():
+            if stop_requested:
+                pygame.mixer.music.stop()
+                break
             time.sleep(0.1)
         print(f'...done playing {mp3_file}')
         done()

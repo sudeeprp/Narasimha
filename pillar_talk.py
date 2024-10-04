@@ -4,7 +4,7 @@ import time
 from serial_ports import serialports
 from player import play, PlayerEvents
 
-PillarTalk = Enum('PillarTalk', ['first_hit', 'crack', 'fang_kick_peace'])
+PillarTalk = Enum('PillarTalk', ['first_hit', 'crack', 'fang_kick_peace', 'low_power', 'back_on'])
 
 def serial_write(byte_to_send):
     print(f'writing {byte_to_send}...')
@@ -62,10 +62,18 @@ def fang_kick_peace(done):
     threading.Thread(target=serial_sequence).start()
 
 
+def low_power(done):
+    serial_write(b'C')
+
+def back_on(done):
+    serial_write(b'R')
+
 req_to_pillar = {
     PillarTalk.first_hit: first_hit,
     PillarTalk.crack: crack,
-    PillarTalk.fang_kick_peace: fang_kick_peace
+    PillarTalk.fang_kick_peace: fang_kick_peace,
+    PillarTalk.low_power: low_power,
+    PillarTalk.back_on: back_on
 }
 
 
